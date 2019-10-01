@@ -1,6 +1,6 @@
 import { completeTypes, createTypes } from 'redux-recompose';
 
-import CardsService from '~services/PokemonService';
+import CardsService from '~services/CardService';
 
 const completedTypes = completeTypes(['GET_CARDS']);
 
@@ -15,6 +15,6 @@ export const actionCreators = {
     type: actions.GET_CARDS,
     target: TARGETS.cards,
     service: CardsService.getCards,
-    successSelector: result => result.data.cards
+    successSelector: result => result.data.results
   })
 };

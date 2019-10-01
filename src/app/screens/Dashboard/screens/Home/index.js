@@ -1,7 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 
 import Loading from '~components/Spinner/components/loading';
+import Card from '~components/Card';
 
 import { actionCreators as actions } from './redux/actions';
 import styles from './styles.module.scss';
@@ -27,29 +29,23 @@ class CardList extends Component {
     });
   };
 
+  handlePlay = () => {
+    this.props.goToGame();
+  };
+
   render() {
     const { cards } = this.props;
     if (!cards) {
       return <Loading />;
     }
+
     return (
       <div className={`${styles.cardListContainer} column center`}>
-        <h1 className={styles.cardListTitle}>Listado de cartas</h1>
-        <div className={styles.cardList}>
-          {cards?.map((card, index) => (
-            <Fragment key={card.id}>
-              <input
-                type="checkbox"
-                name={card.id}
-                value={card.id}
-                onChange={() => this.handleSelectCard(index)}
-                checked={this.state.selectedCardIndexes.has(index)}
-              />
-              <img src={card.imageUrl} alt={card.name} className={`${styles.cardImage} m-right-4`} />
-              <span className={styles.cardName}>{card.name}</span>
-            </Fragment>
-          ))}
-        </div>
+        <h1 className={`${styles.cardListTitle} m-bottom-4`}>Rick & Morty card list</h1>
+        <button type="button" className={`${styles.playButton} m-bottom-4`} onClick={this.handlePlay}>
+          Play
+        </button>
+        <div className={styles.cardList}>{cards?.map(card => <Card card={card} />)}</div>
       </div>
     );
   }
@@ -61,7 +57,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCards: () => dispatch(actions.getCards())
+  getCards: () => dispatch(actions.getCards()),
+  goToGame: () => dispatch(push('/game'))
 });
 
 export default connect(
@@ -97,7 +94,7 @@ export default connect(
 //     };
 
 //     fetch();
-//   }, [request]);
+//   }, [dependencies]);
 
 //   return [state, loading, error];
 // };

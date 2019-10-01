@@ -11,7 +11,7 @@ const api = create({
    * TODO Add this if you need it
    * baseURL: process.env.API_BASE_URL,
    */
-  baseURL: 'https://itunes.apple.com',
+  baseURL: 'https://rickandmortyapi.com/api',
   timeout: 15000
 });
 
@@ -34,7 +34,6 @@ export const apiSetup = dispatch => {
 
   api.addResponseTransform(response => {
     const serializer = new CamelcaseSerializer();
-    debugger
     response.data = serializer.serialize(response.data);
   })
 };

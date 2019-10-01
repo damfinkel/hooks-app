@@ -1,7 +1,7 @@
 import api from '../config/api';
 
 const CardsService = {
-  getCards: () => api.get(encodeURI('/search?term=greta+van+fleet'))
+  getCards: () => api.get('/character')
 };
 
 export default CardsService;

@@ -1,25 +1,30 @@
 .card-list-container {
   height: 100%;
+  padding: 40px;
 }
 
 .card-list {
-  align-items: center;
-  width: 100%;
+  align-items: start;
   display: grid;
-  grid-template-columns: 1fr 1fr 3fr;
-  grid-template-rows: repeat(auto-fill, 160px);
-  grid-row-gap:10px;
-}
-
-.card-image {
-  max-height: 160px;
-  object-fit: contain;
-}
-
-.card-name {
-  font-size: 24px;
+  grid-row-gap: 10px;
+  grid-template-columns: repeat(auto-fit, 300px);
+  justify-content: space-between;
+  width: 100%;
 }
 
 .card-list-title {
+  color: white;
   font-size: 30px;
+  line-height: 35px;
+}
+
+.play-button {
+  background-color: rgb(100, 100, 100);
+  border-radius: 6px;
+  color: rgb(255, 152, 0);
+  font-size: 30px;
+  height: 40px;
+  min-height: 60px;
+  padding: 20px;
+  width: 150px;
 }
