@@ -13,11 +13,28 @@ class Card extends Component {
     return (characterSum % MAX_POWER) + 1;
   };
 
+  handleClick = () => {
+    const { card, index, onClick } = this.props;
+    onClick(card, index);
+  };
+
   render() {
-    const { card } = this.props;
+    const { card, selected } = this.props;
     const power = this.getPower();
     return (
-      <div key={card.id} className={`column ${styles.cardContainer}`}>
+      <div
+        key={card.id}
+        className={`column ${styles.cardContainer} ${selected ? styles.selected : ''}`}
+        // htmlFor={`cardCheckbox${card.id}`}
+      >
+        <input
+          id={`cardCheckbox${card.id}`}
+          type="checkbox"
+          value={selected}
+          checked={selected}
+          onChange={this.handleClick}
+          className={styles.cardInput}
+        />
         <img src={card.image} alt={card.name} className={styles.cardImage} />
         <div className={`column ${styles.cardOverlay}`}>
           <h3 className={`${styles.cardTitle}`}>{card.name}</h3>

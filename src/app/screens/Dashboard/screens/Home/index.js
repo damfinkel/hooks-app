@@ -8,25 +8,24 @@ import Card from '~components/Card';
 import { actionCreators as actions } from './redux/actions';
 import styles from './styles.module.scss';
 
+const CARD_AMOUNT_TO_PLAY = 5;
+
 class CardList extends Component {
-  state = { selectedCardIndexes: new Set() };
+  state = { selectedCards: {} };
 
   componentDidMount() {
     this.props.getCards();
   }
 
-  handleSelectCard = index => {
-    const { selectedCardIndexes } = this.state;
-    const newSet = new Set(selectedCardIndexes);
-
-    if (selectedCardIndexes.has(index)) {
-      newSet.delete(index);
+  handleSelectCard = (card, index) => {
+    const { selectedCards } = this.state;
+    let newSelectedCards = { ...selectedCards };
+    if (selectedCards[index]) {
+      delete newSelectedCards[index];
     } else {
-      newSet.add(index);
+      newSelectedCards = { ...selectedCards, [index]: card };
     }
-    this.setState({
-      selectedCardIndexes: newSet
-    });
+    this.setState({ selectedCards: newSelectedCards });
   };
 
   handlePlay = () => {
@@ -35,6 +34,9 @@ class CardList extends Component {
 
   render() {
     const { cards } = this.props;
+    const { selectedCards } = this.state;
+    const selectedCardsAmount = Object.keys(selectedCards).length;
+
     if (!cards) {
       return <Loading />;
     }
@@ -42,10 +44,28 @@ class CardList extends Component {
     return (
       <div className={`${styles.cardListContainer} column center`}>
         <h1 className={`${styles.cardListTitle} m-bottom-4`}>Rick & Morty card list</h1>
-        <button type="button" className={`${styles.playButton} m-bottom-4`} onClick={this.handlePlay}>
+        <button
+          type="button"
+          className={`${styles.playButton} m-bottom-4`}
+          onClick={this.handlePlay}
+          disabled={selectedCardsAmount !== CARD_AMOUNT_TO_PLAY}
+        >
           Play
         </button>
-        <div className={styles.cardList}>{cards?.map(card => <Card card={card} />)}</div>
+        <h2 className={`${styles.cardListTitle} m-bottom-4`}>
+          Select {CARD_AMOUNT_TO_PLAY} cards to play! Selected cards: {selectedCardsAmount}
+        </h2>
+        <div className={styles.cardList}>
+          {cards?.map((card, index) => (
+            <Card
+              key={card.id}
+              card={card}
+              selected={!!selectedCards[index]}
+              onClick={this.handleSelectCard}
+              index={index}
+            />
+          ))}
+        </div>
       </div>
     );
   }

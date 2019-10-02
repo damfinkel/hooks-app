@@ -10,8 +10,6 @@ import { fetchMiddleware, configureMergeState, wrapCombineReducers } from 'redux
  */
 import cardList from '~screens/Dashboard/screens/Home/redux/reducer';
 
-import { reducer as auth } from './Auth/reducer';
-
 configureMergeState((state, diff) => state.merge(diff));
 
 const combineReducers = wrapCombineReducers(CR);
@@ -20,7 +18,6 @@ export const history = createBrowserHistory();
 
 // Add reducers here
 const reducers = combineReducers({
-  auth,
   cardList,
   router: connectRouter(history)
 });

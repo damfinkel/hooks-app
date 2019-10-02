@@ -6,11 +6,9 @@ import { history } from '../../../redux/store';
 import Suspense from '../Suspense';
 import Routes from '../../../constants/routes';
 
-import AuthenticatedRoute from './components/AuthenticatedRoute';
 import styles from './styles.scss';
 
 const Home = lazy(() => import('../../screens/Dashboard'));
-const Login = lazy(() => import('../../screens/Login'));
 
 function AppRoutes() {
   return (
