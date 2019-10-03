@@ -2,19 +2,20 @@ import { completeTypes, createTypes } from 'redux-recompose';
 
 import CardsService from '~services/CardService';
 
-const completedTypes = completeTypes(['GET_CARDS']);
+const completedTypes = completeTypes(['GET_CPU_DECK']);
 
-export const actions = createTypes(completedTypes, '@@CARDS');
+export const actions = createTypes(completedTypes, '@@GAME');
 
 export const TARGETS = {
-  cards: 'cards'
+  cpuDeck: 'cpuDeck'
 };
 
 export const actionCreators = {
-  getCards: () => ({
-    type: actions.GET_CARDS,
-    target: TARGETS.cards,
+  getCpuDeck: () => ({
+    type: actions.GET_CPU_DECK,
+    target: TARGETS.cpuDeck,
     service: CardsService.getCards,
+    payload: { origin: 'Gazorpazorp' },
     successSelector: result => result.data.results
   })
 };

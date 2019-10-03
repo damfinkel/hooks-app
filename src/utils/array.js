@@ -37,3 +37,24 @@ export function arrayOfIndices(length) {
     .fill(null)
     .map((_, index) => index);
 }
+
+export const shuffle = array => {
+  let currentIndex = array.length,
+    temporaryValue = null,
+    randomIndex = -1;
+  const newArray = [...array];
+
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = newArray[currentIndex];
+    newArray[currentIndex] = newArray[randomIndex];
+    newArray[randomIndex] = temporaryValue;
+  }
+
+  return newArray;
+};

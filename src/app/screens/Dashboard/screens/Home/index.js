@@ -4,6 +4,7 @@ import { push } from 'connected-react-router';
 
 import Loading from '~components/Spinner/components/loading';
 import Card from '~components/Card';
+import { DeckContext } from '~screens/Dashboard/contexts';
 
 import { actionCreators as actions } from './redux/actions';
 import styles from './styles.module.scss';
@@ -11,6 +12,8 @@ import styles from './styles.module.scss';
 const CARD_AMOUNT_TO_PLAY = 5;
 
 class CardList extends Component {
+  static contextType = DeckContext;
+
   state = { selectedCards: {} };
 
   componentDidMount() {
@@ -29,6 +32,7 @@ class CardList extends Component {
   };
 
   handlePlay = () => {
+    this.context.setDeck(Object.values(this.state.selectedCards));
     this.props.goToGame();
   };
 
@@ -46,7 +50,7 @@ class CardList extends Component {
         <h1 className={`${styles.cardListTitle} m-bottom-4`}>Rick & Morty card list</h1>
         <button
           type="button"
-          className={`${styles.playButton} m-bottom-4`}
+          className={`button ${styles.playButton} m-bottom-4`}
           onClick={this.handlePlay}
           disabled={selectedCardsAmount !== CARD_AMOUNT_TO_PLAY}
         >

@@ -1,7 +1,7 @@
 import api from '../config/api';
 
 const CardsService = {
-  getCards: () => api.get('/character')
+  getCards: params => api.get('/character', params)
 };
 
 export default CardsService;

@@ -1,7 +1,6 @@
 const Routes = {
   HOME: '/',
-  LOGIN: '/login',
-  RECOVER_PASSWORD: '/forgot_password'
+  GAME: '/game'
 };
 
 export default Routes;

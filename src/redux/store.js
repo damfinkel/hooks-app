@@ -9,6 +9,7 @@ import { fetchMiddleware, configureMergeState, wrapCombineReducers } from 'redux
  * import AnalyticsMiddleware from '../services/AnalyticsService';
  */
 import cardList from '~screens/Dashboard/screens/Home/redux/reducer';
+import game from '~screens/Dashboard/screens/Game/redux/reducer';
 
 configureMergeState((state, diff) => state.merge(diff));
 
@@ -19,6 +20,7 @@ export const history = createBrowserHistory();
 // Add reducers here
 const reducers = combineReducers({
   cardList,
+  game,
   router: connectRouter(history)
 });
 
