@@ -21,7 +21,7 @@ class Dashboard extends Component {
         <DeckContext.Provider value={this.state}>
           <Switch>
             <Route exact path={Routes.HOME} component={Home} />
-            <Route exact path={Routes.GAME} component={Game} />
+            {this.state.deck.length && <Route exact path={Routes.GAME} component={Game} />}
             <Redirect to={Routes.HOME} />
           </Switch>
         </DeckContext.Provider>

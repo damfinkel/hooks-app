@@ -4,7 +4,8 @@
   align-items: center;
   display: grid;
   grid-template-columns: repeat(3, auto);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  row-gap: 20px;
   justify-items: center;
   padding: 20px;
 }
@@ -30,4 +31,9 @@
   font-size: 21px;
   line-height: 25px;
   text-align: center;
+}
+
+.versus-image {
+  height: 300px;
+  width: 300px;
 }

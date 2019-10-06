@@ -15,7 +15,7 @@ export const actionCreators = {
     type: actions.GET_CPU_DECK,
     target: TARGETS.cpuDeck,
     service: CardsService.getCards,
-    payload: { origin: 'Gazorpazorp' },
+    payload: { species: 'alien' },
     successSelector: result => result.data.results
   })
 };

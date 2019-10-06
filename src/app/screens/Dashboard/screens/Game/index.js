@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 
 import { shuffle } from '~utils/array';
 import { DeckContext } from '~screens/Dashboard/contexts';
+import Loading from '~components/Spinner/components/loading';
+import Card from '~components/Card';
+import { getPower } from '~utils/cards';
 
 import { actionCreators as actions } from './redux/actions';
 import cardImage from './assets/magic-card-back.jpeg';
+import versusImage from './assets/versus.png';
 import styles from './styles.module.scss';
 
 class Game extends Component {
@@ -19,32 +23,77 @@ class Game extends Component {
     return null;
   }
 
-  state = { score: 0, remainingDeck: shuffle(this.context.deck), remainingCpuDeck: null };
+  state = {
+    score: 0,
+    cpuScore: 0,
+    remainingDeck: shuffle(this.context.deck),
+    remainingCpuDeck: null,
+    currentPlayerCard: null,
+    currentCpuCard: null
+  };
 
   componentDidMount() {
     this.props.getCpuDeck();
   }
 
+  handleShowNextCard = () => {
+    const { remainingDeck, remainingCpuDeck, score, cpuScore } = this.state;
+    const nextPlayerCard = remainingDeck[0];
+    const nextCpuCard = remainingCpuDeck[0];
+    const newRemainingDeck = remainingDeck.slice(1, remainingDeck.length);
+    const newRemainingCpuDeck = remainingCpuDeck.slice(1, remainingCpuDeck.length);
+    const youWin = getPower(nextPlayerCard) > getPower(nextCpuCard);
+    const newScore = score + (youWin ? 1 : 0);
+    const newCpuScore = cpuScore + (youWin ? 0 : 1);
+
+    this.setState({
+      currentPlayerCard: nextPlayerCard,
+      currentCpuCard: nextCpuCard,
+      remainingDeck: newRemainingDeck,
+      remainingCpuDeck: newRemainingCpuDeck,
+      score: newScore,
+      cpuScore: newCpuScore
+    });
+  };
+
   render() {
-    const { score } = this.state;
+    const {
+      score,
+      cpuScore,
+      remainingDeck,
+      remainingCpuDeck,
+      currentCpuCard,
+      currentPlayerCard
+    } = this.state;
+
+    if (!remainingCpuDeck) {
+      return <Loading />;
+    }
     return (
       <div className={styles.gameContainer}>
         <div className="column">
           <h5 className={`${styles.deckTitle} m-bottom-4`}>Your deck</h5>
-          <img src={cardImage} className={styles.cardImage} />
+          <img src={cardImage} className={`${styles.cardImage} m-bottom-4`} />
+          <span className={`${styles.score} m-bottom-4`}>Score: {score}</span>
         </div>
         <div className="column center middle">
-          <button type="button" className="button self-middle m-bottom-4">
-            Next card
-          </button>
-          <span className={styles.score}>Score: {score}</span>
+          {remainingDeck.length > 0 && (
+            <button type="button" className="button self-middle m-bottom-4" onClick={this.handleShowNextCard}>
+              Next card
+            </button>
+          )}
+          {remainingCpuDeck.length === 0 && (
+            <span className={styles.score}>{score > cpuScore ? 'You win!' : 'You lose :('}</span>
+          )}
         </div>
         <div className="column">
           <h5 className={`${styles.deckTitle} m-bottom-4`}>CPU deck</h5>
-          <img src={cardImage} className={styles.cardImage} />
+          <img src={cardImage} className={`${styles.cardImage} m-bottom-4`} />
+          <span className={styles.score}>Score: {cpuScore}</span>
         </div>
-        <img src={cardImage} className={styles.cardImage} />
-        <img src={cardImage} className={`${styles.cardImage} ${styles.cpuCurrentCard}`} />
+        {currentPlayerCard && <Card card={currentPlayerCard} />}
+        {currentPlayerCard && <img src={versusImage} className={styles.versusImage} />}
+        {currentCpuCard && <Card className={styles.cpuCurrentCard} card={currentCpuCard} />}
       </div>
     );
   }

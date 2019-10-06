@@ -1,40 +1,33 @@
 import React, { Component } from 'react';
 
+import { getPower } from '~utils/cards';
+
 import styles from './styles.module.scss';
 
-const MAX_POWER = 10;
-
 class Card extends Component {
-  getPower = () => {
-    const { card } = this.props;
-    const characterSum = card.name
-      .split('')
-      .reduce((result, _, index) => result + card.name.charCodeAt(index), 0);
-    return (characterSum % MAX_POWER) + 1;
-  };
-
   handleClick = () => {
     const { card, index, onClick } = this.props;
     onClick(card, index);
   };
 
   render() {
-    const { card, selected } = this.props;
-    const power = this.getPower();
+    const { card, selected, onClick, className } = this.props;
+    const power = getPower(card);
     return (
       <div
         key={card.id}
-        className={`column ${styles.cardContainer} ${selected ? styles.selected : ''}`}
-        // htmlFor={`cardCheckbox${card.id}`}
+        className={`column ${styles.cardContainer} ${selected ? styles.selected : ''} ${className}`}
       >
-        <input
-          id={`cardCheckbox${card.id}`}
-          type="checkbox"
-          value={selected}
-          checked={selected}
-          onChange={this.handleClick}
-          className={styles.cardInput}
-        />
+        {onClick && (
+          <input
+            id={`cardCheckbox${card.id}`}
+            type="checkbox"
+            value={selected}
+            checked={selected}
+            onChange={this.handleClick}
+            className={styles.cardInput}
+          />
+        )}
         <img src={card.image} alt={card.name} className={styles.cardImage} />
         <div className={`column ${styles.cardOverlay}`}>
           <h3 className={`${styles.cardTitle}`}>{card.name}</h3>
@@ -70,5 +63,9 @@ class Card extends Component {
     );
   }
 }
+
+Card.defaultProps = {
+  className: ''
+};
 
 export default Card;
