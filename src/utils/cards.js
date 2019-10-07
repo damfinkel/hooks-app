@@ -1,4 +1,5 @@
-const MAX_POWER = 10;
+export const MAX_POWER = 10;
+export const DECK_SIZE = 5;
 
 export const getPower = card => {
   const characterSum = card.name

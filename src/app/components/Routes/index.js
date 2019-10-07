@@ -8,7 +8,7 @@ import Routes from '../../../constants/routes';
 
 import styles from './styles.scss';
 
-const Home = lazy(() => import('../../screens/Dashboard'));
+const Home = lazy(() => import('../../HooksScreens/Dashboard'));
 
 function AppRoutes() {
   return (

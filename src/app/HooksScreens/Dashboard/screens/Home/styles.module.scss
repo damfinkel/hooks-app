@@ -1,0 +1,25 @@
+@import 'src/scss/colors';
+
+.card-list-container {
+  height: 100%;
+  padding: 40px;
+}
+
+.card-list {
+  align-items: start;
+  display: grid;
+  grid-row-gap: 10px;
+  grid-template-columns: repeat(auto-fit, 300px);
+  justify-content: space-between;
+  width: 100%;
+}
+
+.card-list-title {
+  color: $white;
+  font-size: 30px;
+  line-height: 35px;
+}
+
+.play-button {
+  width: 150px;
+}
