@@ -79,7 +79,7 @@ class Game extends Component {
         <div className="column center middle">
           {remainingDeck.length > 0 && (
             <button type="button" className="button self-middle m-bottom-4" onClick={this.handleShowNextCard}>
-              Next card
+              {currentPlayerCard ? 'Next card' : 'Start game'}
             </button>
           )}
           {remainingCpuDeck.length === 0 && (
