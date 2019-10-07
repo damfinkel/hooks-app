@@ -2,5 +2,12 @@
 
 .navbar-container {
   background-color: $black;
+  border-bottom-color: $orange;
+  border-bottom-width: 2px;
+  border-style: solid;
   padding: 15px 30px;
+}
+
+.theme-button {
+  color: $orange;
 }

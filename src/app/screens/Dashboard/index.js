@@ -20,7 +20,7 @@ class Dashboard extends Component {
   state = { deck: [], setDeck: this.setDeck };
 
   render() {
-    const backgroundColor = this.context.state.theme === 'dark' ? '#000000' : '#FFFFFF';
+    const backgroundColor = this.context.state.theme === 'dark' ? '#2d3739' : '#9a9a9a';
     return (
       // eslint-disable-next-line react/forbid-dom-props
       <div className={styles.container} style={{ backgroundColor }}>
