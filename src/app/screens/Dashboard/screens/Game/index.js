@@ -105,7 +105,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCpuDeck: () => dispatch(actions.getCpuDeck({ species: 'Gazorpazorp' }))
+  getCpuDeck: () => dispatch(actions.getCpuDeck())
 });
 
 export default connect(

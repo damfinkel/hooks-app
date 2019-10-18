@@ -1,27 +1,25 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 
 import { AppContext } from '../Routes/contexts';
 import { appActions } from '../Routes/reducer';
 
 import styles from './styles.module.scss';
 
-class Navbar extends Component {
-  static contextType = AppContext;
+function Navbar() {
+  const { state, dispatch } = useContext(AppContext);
 
-  handleChangeTheme = () => {
-    const payload = this.context.state.theme === 'dark' ? 'light' : 'dark';
-    this.context.dispatch({ type: appActions.CHANGE_THEME, payload });
+  const handleChangeTheme = () => {
+    const payload = state.theme === 'dark' ? 'light' : 'dark';
+    dispatch({ type: appActions.CHANGE_THEME, payload });
   };
 
-  render() {
-    return (
-      <div className={`${styles.navbarContainer} row end`}>
-        <button type="button" className={styles.themeButton} onClick={this.handleChangeTheme}>
-          Change theme
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div className={`${styles.navbarContainer} row end`}>
+      <button type="button" className={styles.themeButton} onClick={handleChangeTheme}>
+        Change theme
+      </button>
+    </div>
+  );
 }
 
 export default Navbar;
